@@ -6,6 +6,9 @@
     <title>Document</title>
   </head>
   <body>
-    <div>7번 페이지 page2입니다.</div>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <input type="file" name="image" multiple />
+      <button type="submit">업로드</button>
+    </form>
   </body>
 </html>

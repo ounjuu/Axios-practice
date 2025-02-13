@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div class="box"></div>
+  </body>
+  <script>
+    let data = [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+    ]; // 인덱스 번호 +1 : 버튼 생성
+    const box = document.querySelector(".box");
+    box.innerHTML = data
+      .map((x, i) => {
+        return `<button onclick="pageMove${i + 1}()">${i + 1}페이지</button>`;
+      })
+      .join("");
+    // const data = {
+    //   id: 1,
+    //   name: "김김김",
+    //   age: 24,
+    // };
+    // // axios 요청 테스트
+    // const onClick = () => {
+    //   //   axios({
+    //   //     method: "get",
+    //   //     url: "/axiosget",
+    //   //     params: data,
+    //   //   }).then((res) => {
+    //   //     console.log(res, "뭐라고 나오니?");
+    //   //   });
+    //   axios({
+    //     method: "post",
+    //     url: "/axiospost",
+    //     data: data,
+    //   }).then((res) => {
+    //     console.log(res, "뭐라고 나오니?");
+    //   });
+    // };
+
+    const pageMove1 = () => {
+      window.location.href = `/snnsn1`;
+    };
+  </script>
+</html>

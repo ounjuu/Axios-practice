@@ -38,7 +38,7 @@
       </div>
     </form>
     <!--  -->
-    <form action="/postform" method="post">
+    <form action="/postform" method="post" enctype="multipart/form-data">
       <div class="formWrap">
         <label for="id2">아이디</label><br />
         <input
@@ -67,6 +67,7 @@
           onclick="btn2()"
         />
       </div>
+      <input type="file" name="userfile" />
     </form>
     <script>
       const btn1 = () => {
@@ -104,6 +105,9 @@
           data: data,
         }).then((res) => {
           console.log(res.data, "같을까 다를까??");
+          if (res.data === "같아용") {
+            window.location.href = "/";
+          }
         });
       };
     </script>

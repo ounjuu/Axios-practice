@@ -7,43 +7,80 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
-    <div class="box"></div>
+    <form
+      action="/upload/dynamic"
+      method="post"
+      enctype="multipart/form-data"
+      name="form1"
+    >
+      <input type="file" name="files" /><br />
+      <input type="text" name="title" /><br />
+
+      <button type="button" onclick="dynamicUpload()">업로드</button>
+    </form>
+    <h3>파일한개</h3>
+    <div id="file1"></div>
+    <br /><br />
+
+    <form
+      action="/upload/array"
+      method="post"
+      enctype="multipart/form-data"
+      name="form2"
+    >
+      <input type="file" name="userfiles" multiple /><br />
+      <input type="text" name="usertitle" /><br />
+      <button type="button" onclick="imagesupload()">업로드</button>
+      <div id="imgupload"></div>
+    </form>
+    <div id="file2"></div>
+    <h3>파일여러개</h3>
   </body>
   <script>
-    let data = [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    ]; // 인덱스 번호 +1 : 버튼 생성
-    const box = document.querySelector(".box");
-    box.innerHTML = data
-      .map((x, i) => {
-        return `<button onclick="pageMove${i + 1}()">${i + 1}페이지</button>`;
-      })
-      .join("");
-    // const data = {
-    //   id: 1,
-    //   name: "김김김",
-    //   age: 24,
-    // };
-    // // axios 요청 테스트
-    // const onClick = () => {
-    //   //   axios({
-    //   //     method: "get",
-    //   //     url: "/axiosget",
-    //   //     params: data,
-    //   //   }).then((res) => {
-    //   //     console.log(res, "뭐라고 나오니?");
-    //   //   });
-    //   axios({
-    //     method: "post",
-    //     url: "/axiospost",
-    //     data: data,
-    //   }).then((res) => {
-    //     console.log(res, "뭐라고 나오니?");
-    //   });
-    // };
+    const dynamicUpload = () => {
+      const form = document.forms["form1"];
+      const formData = new FormData();
+      formData.append("title", form.title.value);
+      formData.append("files", form.files.files[0]);
+      axios({
+        method: "post",
+        url: "/upload/dynamic",
+        data: formData, //폼데이터를 여기로 옮긴다.
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      }).then((res) => {
+        console.log(res.data);
+        const file1 = document.getElementById("file1");
+        file1.innerHTML = `<img src="/${res.data.src}" width="300" height="300"/>`;
+      });
+    };
 
-    const pageMove1 = () => {
-      window.location.href = `http://localhost:3000/snnsn1`;
+    const imagesupload = () => {
+      const form2 = document.forms["form2"];
+      const formData2 = new FormData();
+      for (let i = 0; i < form2.userfiles.files.length; i++) {
+        formData2.append("userfiles", form2.userfiles.files[i]); // 여러 개의 파일 추가
+      }
+
+      axios({
+        method: "post",
+        url: "/upload/array",
+        data: formData2, //폼데이터를 여기로 옮긴다.
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      }).then((res) => {
+        const file2 = document.getElementById("file2");
+        file2.innerHTML = "";
+        res.data.imagePaths.forEach((imagePath) => {
+          const img = document.createElement("img");
+          img.src = imagePath;
+          img.style.maxWidth = "300px";
+          img.style.margin = "5px";
+          file2.appendChild(img);
+        });
+      });
     };
   </script>
 </html>
