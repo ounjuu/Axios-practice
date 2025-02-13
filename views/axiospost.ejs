@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>aixos-get</title>
+  </head>
+  <body>
+    <form action="/axiospost" method="post">
+      <div class="formWrap">
+        <label for="id">아이디</label><br />
+        <input
+          type="id"
+          id="id"
+          name="id"
+          placeholder="아이디를 입력해주세요."
+          required
+          class="id-input"
+        />
+      </div>
+      <div class="idText"></div>
+      <div class="form-group">
+        <label for="password">비밀번호</label><br />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="비밀번호를 입력해주세요."
+          required
+          class="pw-input"
+        />
+      </div>
+      <div class="pwText"></div>
+      <div class="loginFail"></div>
+      <div class="form-group">
+        <input
+          type="button"
+          class="login-button"
+          onclick="login()"
+          value="로그인"
+        />
+      </div>
+    </form>
+    <script>
+      const login = () => {
+        const pwText = document.querySelector(".pwText");
+        const idinput = document.querySelector("#id");
+        const pwinput = document.querySelector("#password");
+
+        let data = {
+          id: idinput.value,
+          pw: pwinput.value,
+        };
+        axios({
+          method: "POST",
+          url: "/axiospost",
+          data: data,
+        }).then((response) => {
+          if (response.data === "성공") {
+            pwText.innerHTML = "로그인 성공입니다.";
+          } else {
+            pwText.innerHTML = "아이디와 비밀번호를 다시 입력해주세요.";
+          }
+          console.log(response.data);
+        });
+      };
+    </script>
+  </body>
+</html>

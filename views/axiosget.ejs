@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>aixos-get</title>
+  </head>
+  <body>
+    <form>
+      <div class="nameBox formdiv">
+        <label for="name">name</label><br />
+        <input
+          type="text"
+          placeholder="이름을 작성해 주세요."
+          name="name"
+          id="nameInput"
+          required
+        />
+      </div>
+      <fieldset>
+        <legend>성별</legend>
+        <br />
+        <input type="radio" name="gender" value="male" />남
+        <input type="radio" name="gender" value="female" />여
+      </fieldset>
+
+      <fieldset>
+        <legend>생년월일</legend>
+        <div class="birthBox formdiv">
+          <select class="birbox" id="birth-year" name="birth" value="year">
+            <option disabled selected>출생년도</option>
+          </select>
+          <select class="birbox" id="birth-month" name="birth" value="month">
+            <option disabled selected>월</option>
+          </select>
+          <select class="birbox" id="birth-day" name="birth" value="day">
+            <option disabled selected>일</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>관심사</legend>
+        <input type="checkbox" name="hobby" value="trip" />여행
+        <input type="checkbox" name="hobby" value="fashion" />패션
+        <input type="checkbox" name="hobby" value="food" />음식
+      </fieldset>
+
+      <input type="button" id="sign" onclick="signs()" value = "회원가입"/ >
+    </form>
+    <script>
+      const signs = () => {
+        let nameInput = document.querySelector("#nameInput").value;
+        let gendervalue = document.querySelector(
+          'input[name="gender"]:checked'
+        ).value;
+        const yearSelect = document.getElementById("birth-year");
+        const monthSelect = document.getElementById("birth-month");
+        const daySelect = document.getElementById("birth-day");
+        let hobbyvalue = document.querySelector(
+          'input[name="hobby"]:checked'
+        ).value;
+        let data = {
+          name: nameInput,
+          gender: gendervalue,
+          year: yearSelect.value,
+          month: monthSelect.value,
+          day: daySelect.value,
+          hobby: hobbyvalue,
+        };
+        axios({
+          method: "GET",
+          url: "/axiosget",
+          params: data,
+        }).then((response) => console.log(response.data));
+      };
+
+      // 연도
+      // 출생년도 생성 (1900년부터 현재까지)
+      const yearSelect = document.getElementById("birth-year");
+      const currentYear = new Date().getFullYear(); // 현재 연도
+
+      for (let year = 1900; year <= currentYear; year++) {
+        const option = document.createElement("option");
+        option.value = year;
+        option.textContent = year;
+        yearSelect.appendChild(option);
+      }
+
+      // 월 생성 (1부터 12까지)
+      const monthSelect = document.getElementById("birth-month");
+
+      for (let month = 1; month <= 12; month++) {
+        const option = document.createElement("option");
+        option.value = month;
+        option.textContent = month;
+        monthSelect.appendChild(option);
+      }
+
+      // 일 생성 (1부터 31까지)
+      const daySelect = document.getElementById("birth-day");
+
+      for (let day = 1; day <= 31; day++) {
+        const option = document.createElement("option");
+        option.value = day;
+        option.textContent = day;
+        daySelect.appendChild(option);
+      }
+
+      // 월과 연도에 따라 일수를 조정하는 함수
+      const updateDays = () => {
+        const selectedYear = parseInt(yearSelect.value);
+        const selectedMonth = parseInt(monthSelect.value);
+
+        // 일수를 계산하는 함수
+        const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
+
+        // 일 <select>를 비우고 다시 채우기
+        daySelect.innerHTML = "<option disabled selected>일</option>";
+
+        for (let day = 1; day <= daysInMonth; day++) {
+          const option = document.createElement("option");
+          option.value = day;
+          option.textContent = day;
+          daySelect.appendChild(option);
+        }
+      };
+
+      // 연도 또는 월이 선택될 때마다 일수를 업데이트
+      yearSelect.addEventListener("change", updateDays);
+      monthSelect.addEventListener("change", updateDays);
+
+      // 생년월일 선택 함수
+      const checkAge = () => {
+        const yearSelect = document.getElementById("birth-year");
+        const monthSelect = document.getElementById("birth-month");
+        const daySelect = document.getElementById("birth-day");
+
+        if (
+          yearSelect.value !== "출생년도" &&
+          monthSelect.value !== "월" &&
+          daySelect.value !== "일"
+        ) {
+          ageCheck = true;
+        } else {
+          ageCheck = false;
+        }
+        validCheck();
+      };
+    </script>
+  </body>
+</html>
