@@ -42,6 +42,10 @@ app.get("/main", (req, res) => {
   res.render("main");
 });
 
+app.get("/upload", (req, res) => {
+  res.render("page1");
+});
+
 // axiosget;
 app.get("/axiosget", (req, res) => {
   console.log(req.query);
