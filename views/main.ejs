@@ -31,7 +31,6 @@
       <input type="file" name="userfiles" multiple /><br />
       <input type="text" name="usertitle" /><br />
       <button type="button" onclick="imagesupload()">업로드</button>
-      <div id="imgupload"></div>
     </form>
     <div id="file2"></div>
     <h3>파일여러개</h3>
@@ -66,7 +65,7 @@
       axios({
         method: "post",
         url: "/upload/array",
-        data: formData2, //폼데이터를 여기로 옮긴다.
+        data: formData2,
         headers: {
           "Content-type": "multipart/form-data",
         },

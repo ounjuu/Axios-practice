@@ -41,9 +41,10 @@ let query = [];
 
 let ida = "ejej";
 let pwa = "ej1";
-// app.get("/", (req, res) => {
-//   res.render("axiosget");
-// });
+
+app.get("/", (req, res) => {
+  res.render("axiosget");
+});
 app.get("/main", (req, res) => {
   res.render("main");
 });
@@ -51,45 +52,45 @@ app.get("/main", (req, res) => {
 app.get("/upload", (req, res) => {
   res.render("page1");
 });
-// app.get("/axio", (req, res) => {
-//   res.render("axiospost");
-// });
+app.get("/axio", (req, res) => {
+  res.render("axiospost");
+});
 
-// axiosget
-// app.get("/axiosget", (req, res) => {
-//   console.log(req.query);
-//   res.send(req.query);
-// });
+axiosget;
+app.get("/axiosget", (req, res) => {
+  console.log(req.query);
+  res.send(req.query);
+});
 
-// app.post("/axiospost", (req, res) => {
-//   if (req.body.id === ida && req.body.pw === pwa) {
-//     res.send("성공");
-//   } else {
-//     res.send("실패");
-//   }
-//   console.log(req.body, "dfdfd");
-// });
+app.post("/axiospost", (req, res) => {
+  if (req.body.id === ida && req.body.pw === pwa) {
+    res.send("성공");
+  } else {
+    res.send("실패");
+  }
+  console.log(req.body, "dfdfd");
+});
 
-// 연습
-// app.get("/getpost", (req, res) => {
-//   res.render("practice_form");
-// });
+연습;
+app.get("/getpost", (req, res) => {
+  res.render("practice_form");
+});
 
-// app.get("/getform", (req, res) => {
-//   console.log(req.query);
-//   res.send("서버에서 보내는 메세지");
-// });
+app.get("/getform", (req, res) => {
+  console.log(req.query);
+  res.send("서버에서 보내는 메세지");
+});
 
-// app.post("/postform", (req, res) => {
-//   if (req.body.id === req.body.pw) {
-//     res.send("같아용");
-//   } else {
-//     res.send("달라용");
-//   }
-//   console.log(req.body, "dfdfd");
-// });
+app.post("/postform", (req, res) => {
+  if (req.body.id === req.body.pw) {
+    res.send("같아용");
+  } else {
+    res.send("달라용");
+  }
+  console.log(req.body, "dfdfd");
+});
 
-// 연습끝
+연습끝;
 
 app.post("/upload/dynamic", upload.single("files"), (req, res) => {
   console.log(req.file, "파일");
@@ -99,8 +100,8 @@ app.post("/upload/dynamic", upload.single("files"), (req, res) => {
 
 let imagePaths;
 app.post("/upload/array", upload.array("userfiles"), (req, res) => {
-  // console.log("요청 받음");
-  // console.log("업로드된 파일들:", req.files);
+  console.log("요청 받음");
+  console.log("업로드된 파일들:", req.files);
   imagePaths = req.files.map((file) => `/uploads/${file.filename}`);
   res.send({ imagePaths });
 });
