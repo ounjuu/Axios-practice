@@ -38,6 +38,9 @@ app.set("views", path.join(__dirname, "/views"));
 app.get("/", (req, res) => {
   res.render("axiosget");
 });
+app.get("/main", (req, res) => {
+  res.render("main");
+});
 
 // axiosget;
 app.get("/axiosget", (req, res) => {
