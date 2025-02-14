@@ -33,30 +33,13 @@ app.set("view engine", "ejs"); // ejs 파일 html로 변경해줌
 app.set("views", "./views"); // ejs 파일 위치 설정
 app.set("views", path.join(__dirname, "/views"));
 
-let data = [];
-let logindata = [];
-let name = [];
-let query = [];
 // post 요청은 req.body
-
-let ida = "ejej";
-let pwa = "ej1";
 
 app.get("/", (req, res) => {
   res.render("axiosget");
 });
-app.get("/main", (req, res) => {
-  res.render("main");
-});
 
-app.get("/upload", (req, res) => {
-  res.render("page1");
-});
-app.get("/axio", (req, res) => {
-  res.render("axiospost");
-});
-
-axiosget;
+// axiosget;
 app.get("/axiosget", (req, res) => {
   console.log(req.query);
   res.send(req.query);
@@ -71,7 +54,7 @@ app.post("/axiospost", (req, res) => {
   console.log(req.body, "dfdfd");
 });
 
-연습;
+//연습;
 app.get("/getpost", (req, res) => {
   res.render("practice_form");
 });
@@ -90,7 +73,7 @@ app.post("/postform", (req, res) => {
   console.log(req.body, "dfdfd");
 });
 
-연습끝;
+//연습끝;
 
 app.post("/upload/dynamic", upload.single("files"), (req, res) => {
   console.log(req.file, "파일");
