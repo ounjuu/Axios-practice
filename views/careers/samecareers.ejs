@@ -3,35 +3,74 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>여자</title>
+    <title>같은 드라마, 영화, 뮤지컬 배우들</title>
   </head>
   <body>
-    <h1>여자</h1>
+    <h1>같은 드라마, 영화, 뮤지컬에 출연한 배우들</h1>
+
+    <!-- 드라마 테이블 -->
+    <h2>드라마</h2>
     <table border="1">
       <thead>
         <tr>
-          <th>이름</th>
-          <th>나이</th>
-          <th>커리어</th>
+          <th>제목</th>
+          <th>배우 이름</th>
+          <th>역할</th>
         </tr>
       </thead>
       <tbody>
-        <% femaleList.forEach(career => { %>
+        <% Object.keys(sameCareers.drama).forEach(dramaTitle => { %> <%
+        sameCareers.drama[dramaTitle].forEach(actor => { %>
         <tr>
-          <td><%= career.userName %></td>
-          <td><%= career.age %></td>
-          <td>
-            <ul>
-              <% career.careers.forEach(careerItem => { %>
-              <li>
-                <%= careerItem.title %> - <%= careerItem.role %> (<%=
-                careerItem.category %>)
-              </li>
-              <% }) %>
-            </ul>
-          </td>
+          <td><%= dramaTitle %></td>
+          <td><%= actor.actorName %></td>
+          <td><%= actor.role %></td>
         </tr>
-        <% }) %>
+        <% }) %> <% }) %>
+      </tbody>
+    </table>
+
+    <!-- 영화 테이블 -->
+    <h2>영화</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>제목</th>
+          <th>배우 이름</th>
+          <th>역할</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% Object.keys(sameCareers.movie).forEach(movieTitle => { %> <%
+        sameCareers.movie[movieTitle].forEach(actor => { %>
+        <tr>
+          <td><%= movieTitle %></td>
+          <td><%= actor.actorName %></td>
+          <td><%= actor.role %></td>
+        </tr>
+        <% }) %> <% }) %>
+      </tbody>
+    </table>
+
+    <!-- 뮤지컬 테이블 -->
+    <h2>뮤지컬</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>제목</th>
+          <th>배우 이름</th>
+          <th>역할</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% Object.keys(sameCareers.musical).forEach(musicalTitle => { %> <%
+        sameCareers.musical[musicalTitle].forEach(actor => { %>
+        <tr>
+          <td><%= musicalTitle %></td>
+          <td><%= actor.actorName %></td>
+          <td><%= actor.role %></td>
+        </tr>
+        <% }) %> <% }) %>
       </tbody>
     </table>
   </body>

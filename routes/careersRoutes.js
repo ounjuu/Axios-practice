@@ -7,7 +7,7 @@ router.get("/", careersController.getAllList);
 
 router.get("/male", careersController.getMaleList);
 router.get("/female", careersController.getFemaleList);
-router.get("/sameCareers", careersController.getSameCareersList);
+router.get("/samecareers", careersController.getSameCareersList);
 router.get("/movielist", careersController.getMovieList);
 router.get("/dramalist", careersController.getDramaList);
 

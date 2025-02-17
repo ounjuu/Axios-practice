@@ -3,41 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>드라마 리스트</title>
+    <title>영화</title>
   </head>
   <body>
-    <h1>드라마 리스트</h1>
+    <h1>영화</h1>
     <table border="1">
       <thead>
         <tr>
-          <th>이름</th>
-          <th>나이</th>
-          <th>커리어</th>
+          <th>카테고리</th>
+          <th>제목</th>
+          <th>배우 이름</th>
+          <th>역할</th>
         </tr>
       </thead>
       <tbody>
-        <% allActor.forEach(career => { %>
+        <% Dramas.forEach(darama => { %>
         <tr>
-          <td><%= career.userName %></td>
-          <td><%= career.age %></td>
-          <td>
-            <ul>
-              <% career.careers.forEach(careerItem => { %>
-              <li>
-                <%= careerItem.title %> - <%= careerItem.role %> (<%=
-                careerItem.category %>)
-              </li>
-              <% }) %>
-            </ul>
-          </td>
+          <td><%= darama.category %></td>
+          <td><%= darama.title %></td>
+          <td><%= darama.actorName %></td>
+          <td><%= darama.role %></td>
         </tr>
         <% }) %>
       </tbody>
     </table>
-    <div><a href="/careers/male">남자</a></div>
-    <div><a href="/careers/female">여자</a></div>
-    <div><a href="/careers/sameCareers">같은 커리어</a></div>
-    <div><a href="/careers/movielist">영화 리스트</a></div>
-    <div><a href="/careers/dramalist">드라마 리스트</a></div>
   </body>
 </html>

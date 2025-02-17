@@ -118,24 +118,29 @@ const getFemale = () => {
 };
 
 //  4. 같은 드라마 || 같은 영화 || 같은 뮤지컬 나온 배우들 (카테고리, 제목, 배우 이름, 역할 ) 테이블
-
 const getSameCareers = () => {
-  let result = {};
+  let result = {
+    drama: {},
+    movie: {},
+    musical: {},
+  };
 
   careers.forEach((actor) => {
     actor.careers.forEach(({ category, title, role }) => {
-      if (!result[title]) {
-        result[title] = []; // 해당 작품이 없으면 빈 배열 생성
+      if (!result[category]) return; // 카테고리가 없는 경우 무시
+
+      if (!result[category][title]) {
+        result[category][title] = [];
       }
-      result[title].push({
-        category,
-        title,
+
+      result[category][title].push({
         actorName: actor.userName,
         role,
       });
     });
   });
 
+  console.log("📢 같은 드라마, 영화, 뮤지컬에 출연한 사람들:", result);
   return result;
 };
 
