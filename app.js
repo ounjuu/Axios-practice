@@ -20,6 +20,11 @@ const upload = multer({ storage: storage });
 
 const app = express();
 const port = 3000;
+
+// 라우팅 파일 불러오기
+const userRouters = require("./routes/userRoutes");
+const itemRouters = require("./routes/itemRoutes");
+
 // body-parser
 // x-www-form-urlencoded 방식, 객체 형태로 결과가 나옴
 app.use(express.urlencoded({ extended: true }));
@@ -28,16 +33,21 @@ app.use(express.json());
 app.use("/public", express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+// 라우터예시 /users 경로에 대한 라우팅 처리
+
+app.use("/users", userRouters); // '/users'에 대한 요청은 userRoutes 로 처리
+app.use("/items", itemRouters);
+
 // set이 get 위에 와야 함
 app.set("view engine", "ejs"); // ejs 파일 html로 변경해줌
 app.set("views", "./views"); // ejs 파일 위치 설정
-app.set("views", path.join(__dirname, "/views"));
 
 // post 요청은 req.body
 
 app.get("/", (req, res) => {
-  res.render("axiosget");
+  res.render("index");
 });
+
 app.get("/main", (req, res) => {
   res.render("main");
 });
@@ -60,27 +70,6 @@ app.post("/axiospost", (req, res) => {
   }
   console.log(req.body, "dfdfd");
 });
-
-//연습;
-app.get("/getpost", (req, res) => {
-  res.render("practice_form");
-});
-
-app.get("/getform", (req, res) => {
-  console.log(req.query);
-  res.send("서버에서 보내는 메세지");
-});
-
-app.post("/postform", (req, res) => {
-  if (req.body.id === req.body.pw) {
-    res.send("같아용");
-  } else {
-    res.send("달라용");
-  }
-  console.log(req.body, "dfdfd");
-});
-
-//연습끝;
 
 app.post("/upload/dynamic", upload.single("files"), (req, res) => {
   console.log(req.file, "파일");
