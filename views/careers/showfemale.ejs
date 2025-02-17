@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>여자</title>
+  </head>
+  <body>
+    <h1>여자</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>나이</th>
+          <th>커리어</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% femaleList.forEach(career => { %>
+        <tr>
+          <td><%= career.userName %></td>
+          <td><%= career.age %></td>
+          <td>
+            <ul>
+              <% career.careers.forEach(careerItem => { %>
+              <li>
+                <%= careerItem.title %> - <%= careerItem.role %> (<%=
+                careerItem.category %>)
+              </li>
+              <% }) %>
+            </ul>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </body>
+</html>

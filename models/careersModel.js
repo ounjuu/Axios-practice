@@ -94,15 +94,15 @@ const careers = [
     ],
   },
 ];
+
 // 참고 사항 아래의 데이터는 다 다른 페이지에서 나와야함 (js 수정으로 때려박기 금지!);
 //  1. 배우 리스트 (이름,나이,커리어) 테이블 형식으로
 const getAllactor = () => {
   return careers;
 };
-
 //  2. 남자 배우 리스트 (이름,나이,커리어) 테이블 형식으로
 const getMale = () => {
-  return careers.filter((x) => {
+  return careers.filter((x, i) => {
     return x.careers.some((a) => {
       return a.gender === "남자";
     });
@@ -118,14 +118,60 @@ const getFemale = () => {
 };
 
 //  4. 같은 드라마 || 같은 영화 || 같은 뮤지컬 나온 배우들 (카테고리, 제목, 배우 이름, 역할 ) 테이블
-let a = [];
+
 const getSameCareers = () => {
-  return careers.filter((x) => {
-    return x.careers.map((x) => {
-      return (a = x.title);
+  let result = {};
+
+  careers.forEach((actor) => {
+    actor.careers.forEach(({ category, title, role }) => {
+      if (!result[title]) {
+        result[title] = []; // 해당 작품이 없으면 빈 배열 생성
+      }
+      result[title].push({
+        category,
+        title,
+        actorName: actor.userName,
+        role,
+      });
     });
   });
+
+  return result;
 };
-console.log(a, "a?");
+
 //  5. 카테고리 영화만 따로 만들어서 (카테고리 이름, 제목, 배우 이름, 역할) 테이블
+const getMovies = () => {
+  return careers.flatMap((actor) =>
+    actor.careers
+      .filter((career) => career.category === "movie") //
+      .map((career) => ({
+        category: career.category,
+        title: career.title,
+        actorName: actor.userName,
+        role: career.role,
+      }))
+  );
+};
+
 //  6. 카테고리 드라마만 따로 만들어서 (카테고리 이름, 제목, 배우 이름, 역할) 테이블
+const getDramas = () => {
+  return careers.flatMap((actor) =>
+    actor.careers
+      .filter((career) => career.category === "drama")
+      .map((career) => ({
+        category: career.category,
+        title: career.title,
+        actorName: actor.userName,
+        role: career.role,
+      }))
+  );
+};
+
+module.exports = {
+  getAllactor,
+  getMale,
+  getFemale,
+  getSameCareers,
+  getMovies,
+  getDramas,
+};
