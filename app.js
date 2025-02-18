@@ -25,6 +25,8 @@ const port = 3000;
 const userRouters = require("./routes/userRoutes");
 const itemRouters = require("./routes/itemRoutes");
 const careersRouters = require("./routes/careersRoutes");
+const easyRouters = require("./routes/easyRoutes");
+
 // body-parser
 // x-www-form-urlencoded 방식, 객체 형태로 결과가 나옴
 app.use(express.urlencoded({ extended: true }));
@@ -38,6 +40,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/users", userRouters); // '/users'에 대한 요청은 userRoutes 로 처리
 app.use("/items", itemRouters);
 app.use("/careers", careersRouters);
+app.use("/animal", easyRouters);
 
 // set이 get 위에 와야 함
 app.set("view engine", "ejs"); // ejs 파일 html로 변경해줌

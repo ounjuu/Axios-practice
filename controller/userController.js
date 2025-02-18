@@ -5,7 +5,7 @@ const getUsers = (req, res) => {
   const users = userModel.getAllUsers();
   res.render("users/index", { users });
 };
-// view 밑의 users 밑에 index.ejs
+// view 밑의 users 밑에 index.ejs 파일!
 
 // 해당하는 유저 가져오기
 const getUser = (req, res) => {
