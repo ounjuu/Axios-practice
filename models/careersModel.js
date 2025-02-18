@@ -140,7 +140,6 @@ const getSameCareers = () => {
     });
   });
 
-  console.log("📢 같은 드라마, 영화, 뮤지컬에 출연한 사람들:", result);
   return result;
 };
 

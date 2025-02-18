@@ -108,7 +108,6 @@
       const getAllactor = () => {
         return careers;
       };
-      console.log(getAllactor(), "??");
       //  2. 남자 배우 리스트 (이름,나이,커리어) 테이블 형식으로
       const getMale = () => {
         return careers.filter((x, i) => {
@@ -117,7 +116,6 @@
           });
         });
       };
-      console.log(getMale(), "??");
       //  3. 여자 배우 리스트 (이름,나이,커리어) 테이블 형식으로
       const getFemale = () => {
         return careers.filter((x) => {
@@ -126,21 +124,24 @@
           });
         });
       };
-      console.log(getFemale(), "??");
 
       //  4. 같은 드라마 || 같은 영화 || 같은 뮤지컬 나온 배우들 (카테고리, 제목, 배우 이름, 역할 ) 테이블
-
       const getSameCareers = () => {
-        let result = {};
+        let result = {
+          drama: {},
+          movie: {},
+          musical: {},
+        };
 
         careers.forEach((actor) => {
           actor.careers.forEach(({ category, title, role }) => {
-            if (!result[title]) {
-              result[title] = []; // 해당 작품이 없으면 빈 배열 생성
+            if (!result[category]) return; // 카테고리가 없는 경우 무시
+
+            if (!result[category][title]) {
+              result[category][title] = [];
             }
-            result[title].push({
-              category,
-              title,
+
+            result[category][title].push({
               actorName: actor.userName,
               role,
             });
@@ -155,7 +156,7 @@
       const getMovies = () => {
         return careers.flatMap((actor) =>
           actor.careers
-            .filter((career) => career.category === "movie") //
+            .filter((career) => career.category === "movie")
             .map((career) => ({
               category: career.category,
               title: career.title,
@@ -183,45 +184,179 @@
 
       console.log(getDramas(), "📺 드라마 리스트");
     </script>
-
     <script>
-      const animal = [
+      const careers2 = [
         {
           id: 1,
-          name: "호랑이",
-          like: "고기",
+          userName: "김덕배",
+          age: 25,
+          careers: [
+            {
+              category: "movie",
+              title: "남산의 부장들",
+              role: "부장",
+              gender: "남자",
+            },
+            {
+              category: "drama",
+              title: "사랑의 불시착",
+              role: "군인1",
+              gender: "남자",
+            },
+            {
+              category: "musical",
+              title: "룰라",
+              role: "룰라",
+              gender: "남자",
+            },
+          ],
         },
         {
           id: 2,
-          name: "코끼리",
-          like: "모든것",
+          userName: "김춘자",
+          age: 55,
+          careers: [
+            {
+              category: "musical",
+              title: "카지노",
+              role: "회장님",
+              gender: "여자",
+            },
+            {
+              category: "drama",
+              title: "사랑의 불시착",
+              role: "아주머니",
+              gender: "여자",
+            },
+            {
+              category: "musical",
+              title: "룰라",
+              role: "술집주인",
+              gender: "여자",
+            },
+          ],
         },
         {
           id: 3,
-          name: "악어",
-          like: "풀",
+          userName: "김잔치",
+          age: 42,
+          careers: [
+            {
+              category: "movie",
+              title: "잔치집",
+              role: "잔치집 주인",
+              gender: "남자",
+            },
+            {
+              category: "movie",
+              title: "춘수네 잔치",
+              role: "잔치집 주인",
+              gender: "남자",
+            },
+            {
+              category: "movie",
+              title: "덕배네 잔치",
+              role: "잔치집 주인",
+              gender: "남자",
+            },
+          ],
+        },
+        {
+          id: 4,
+          userName: "이민호",
+          age: 30,
+          careers: [
+            {
+              category: "drama",
+              title: "꽃보다 남자",
+              role: "구준표",
+              gender: "남자",
+            },
+            {
+              category: "movie",
+              title: "전지적 독자 시점",
+              role: "주연",
+              gender: "남자",
+            },
+          ],
         },
       ];
 
-      // 1. 전부다 가져와서 리스트 만들기
-      const allList = () => {
-        return animal;
+      // 배우 리스트 (이름, 나이, 커리어)
+      const actor = () => {
+        return careers2;
       };
-      // 2. 각자 상세 페이지 만들기
-      const idList = (id) => {
-        return animal.find((x) => {
-          return Number(x.id) === Number(id);
-        });
-      };
-      console.log(idList(1));
 
-      const likemeatList = () => {
-        return animal.filter((x) => {
-          return x.like === "고기";
+      console.log(actor(), "actor");
+
+      // 남자 배우 리스트 (이름, 나이, 커리어)
+      const maleactor = () => {
+        return careers2.filter((x) => {
+          return x.careers.some((a) => {
+            return a.gender === "남자";
+          });
         });
       };
 
-      console.log(likemeatList());
+      // 남자 배우 리스트 (이름, 나이, 커리어)
+      const femaleactor = () => {
+        return careers2.filter((x) => {
+          return x.careers.some((a) => {
+            return a.gender === "여자";
+          });
+        });
+      };
+
+      // 같은 드라마 || 같은 영화 || 같은 뮤지컬 나온 배우들
+      const sameCategory = () => {
+        let result = { drama: {}, movie: {}, musical: {} };
+        careers2.forEach((actor) => {
+          actor.careers.forEach(({ category, role, title }) => {
+            if (!result[category][title]) {
+              result[category][title] = [];
+            }
+            result[category][title].push({
+              role,
+              actorName: actor.userName,
+            });
+          });
+        });
+        return result;
+      };
+
+      console.log(sameCategory(), "??");
+
+      // 카테고리 영화만 따로 만들어서 테이블
+      const movies = () => {
+        return careers2.flatMap((actor) => {
+          return actor.careers
+            .filter((career) => career.category === "movie")
+            .map((career) => ({
+              category: career.category,
+              title: career.title,
+              role: career.role,
+              actorName: actor.userName,
+            }));
+        });
+      };
+      console.log(movies(), "영화??");
+
+      // 카테고리 드라마만 따로 만들어서 테이블
+      const drama = () => {
+        return careers2.flatMap((actor) => {
+          return actor.careers
+            .filter((career) => {
+              return career.category === "drama"; // 드라마 카테고리만 필터
+            })
+            .map((career) => ({
+              category: career.category, // 카테고리
+              role: career.role, // 역할
+              title: career.title, // 제목
+              actorName: actor.userName, // 배우 이름
+            }));
+        });
+      };
+      console.log(drama(), "드라마??");
     </script>
   </body>
 </html>

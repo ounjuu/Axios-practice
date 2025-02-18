@@ -4,7 +4,6 @@ const careersController = require("../controller/careersController");
 
 // 아이템 전부 가져오기를 하는 라우터
 router.get("/", careersController.getAllList);
-
 router.get("/male", careersController.getMaleList);
 router.get("/female", careersController.getFemaleList);
 router.get("/samecareers", careersController.getSameCareersList);
